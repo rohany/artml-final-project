@@ -24,12 +24,22 @@ def getContours(f, indir, outpath):
     out = os.path.join(outpath, f)
     cv.imwrite(out, closing)
 
+def resize(f, indir, outpath):
+    filename = os.path.join(indir, f)
+    img = cv.imread(filename)
+    resized = cv.resize(img, (512,512))
+    out = os.path.join(outpath, f)
+    cv.imwrite(out, resized)
 
 folder = sys.argv[1]
 outdir = sys.argv[2]
+op = sys.argv[3]
 
 if not os.path.exists(outdir):
     os.mkdir(outdir)
 
 for filename in os.listdir(folder):
-    getContours(filename, folder, outdir)
+    if op == 'contour':
+        getContours(filename, folder, outdir)
+    else:
+	resize(filename, folder, outdir)
