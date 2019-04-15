@@ -25,11 +25,19 @@ def getContours(f, indir, outpath):
     cv.imwrite(out, closing)
 
 def getBlackWhite(f, indir, outpath):
-   filename = os.path.join(indir, f)
-   img = cv.imread(filename)
-   img = cv.cvtColor(img.cv.COLOR_BGR2GRAY)
-   out = os.path.join(outpath, f)
-   cv.imwrite(out, img)
+    filename = os.path.join(indir, f)
+    img = cv.imread(filename)
+    img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+    out = os.path.join(outpath, f)
+    cv.imwrite(out, img)
+
+def getEdges(f, indir, outpath):
+    filename = os.path.join(indir, f)
+    img = cv.imread(filename)
+    img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+    edges = cv.Canny(img, 15, 25)
+    out = os.path.join(outpath, f)
+    cv.imwrite(out, edges)
 
 def resize(f, indir, outpath):
     filename = os.path.join(indir, f)
@@ -50,5 +58,7 @@ for filename in os.listdir(folder):
         getContours(filename, folder, outdir)
     elif op == 'blackandwhite':
         getBlackWhite(filename, folder, outdir)
+    elif op == 'edges':
+        getEdges(filename, folder, outdir)
     else:
-	resize(filename, folder, outdir)
+        resize(filename, folder, outdir)
