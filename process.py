@@ -24,6 +24,13 @@ def getContours(f, indir, outpath):
     out = os.path.join(outpath, f)
     cv.imwrite(out, closing)
 
+def getBlackWhite(f, indir, outpath):
+   filename = os.path.join(indir, f)
+   img = cv.imread(filename)
+   img = cv.cvtColor(img.cv.COLOR_BGR2GRAY)
+   out = os.path.join(outpath, f)
+   cv.imwrite(out, img)
+
 def resize(f, indir, outpath):
     filename = os.path.join(indir, f)
     img = cv.imread(filename)
@@ -41,5 +48,7 @@ if not os.path.exists(outdir):
 for filename in os.listdir(folder):
     if op == 'contour':
         getContours(filename, folder, outdir)
+    elif op == 'blackandwhite':
+        getBlackWhite(filename, folder, outdir)
     else:
 	resize(filename, folder, outdir)
